@@ -2,6 +2,10 @@
 
 A simple chat assistant built with [OpenAI](https://openai.com/) and a [Gradio](https://gradio.app/) interface.
 
+
+# UI Sample 
+![alt text](image.png)
+
 ## Requirements
 
 - Python 3.8 or higher
