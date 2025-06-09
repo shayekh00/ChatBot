@@ -1,4 +1,4 @@
-# ChatBot
+# Chatbot using LangChain
 
 A modern, context-aware AI assistant built with [OpenAI](https://openai.com/), [LangChain](https://www.langchain.com/), and a Gradio frontend.  
 Now supports **Retrieval-Augmented Generation (RAG)** for document-grounded answers.
