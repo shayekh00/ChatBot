@@ -1,23 +1,31 @@
+# main.py
 import gradio as gr
-import os
-from chat import Chat
+from langchain_core.messages import HumanMessage
+from chatbot import chat                
 
-# Instantiate chat with system message
-chat = Chat(system="You are a helpful assistant.")
 
-# Gradio UI function
-def respond(message, chat_history):
-    bot_message = chat.prompt(content=message)
-    chat_history.append((message, bot_message))
-    return "", chat_history
+def respond(user_text, history, session_id="main"):
+    """
+    1) Call the chat() helper (adds msg to LLM + memory, gets reply).
+    2) Convert BOTH messages into {'role', 'content'} dicts.
+    3) Append to history list expected by gr.Chatbot(type="messages").
+    """
+    assistant_text = chat(session_id, user_text)
 
-# Gradio UI layout
+    # Gradio wants dict objects, not tuples
+    history.append({"role": "user",      "content": user_text})
+    history.append({"role": "assistant", "content": assistant_text})
+
+    # return "" to clear the input box, and new history
+    return "", history
+
+
 with gr.Blocks() as demo:
-    chatbot = gr.Chatbot()
-    msg = gr.Textbox()
-    clear = gr.Button("Clear")
+    chatbot = gr.Chatbot(type="messages")
+    input_box = gr.Textbox(placeholder="Ask me anything…")
+    clear_btn = gr.Button("Clear")
 
-    msg.submit(respond, [msg, chatbot], [msg, chatbot])
-    clear.click(lambda: [], None, chatbot, queue=False)
+    input_box.submit(respond, [input_box, chatbot], [input_box, chatbot])
+    clear_btn.click(lambda: [], None, chatbot, queue=False)
 
-demo.launch(debug=True)
+demo.launch()
