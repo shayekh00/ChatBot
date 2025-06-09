@@ -1,6 +1,6 @@
 # ChatBot
 
-A simple chat assistant built with [OpenAI](https://openai.com/) and a [Gradio](https://gradio.app/) interface.
+A simple chat assistant built with [OpenAI](https://openai.com/), [LangChain](https://www.langchain.com/) and a [Gradio](https://gradio.app/) interface.
 
 
 # UI Sample 
